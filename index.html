@@ -1,22 +1,356 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Shvilligan Games</title>
+  <meta name="description" content="Shvilligan Games — party games crafted to pass the phone. Who is AI? — cyberpunk social deduction for 5–9 players." />
+
+  <link rel="icon" type="image/png" href="games/who-is-ai/icon.png" />
+  <link rel="apple-touch-icon" href="games/who-is-ai/icon.png" />
+
+  <!-- Open Graph — so link previews in Instagram / Telegram look right. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shvilligan Games — Who is AI?" />
+  <meta property="og:description" content="Киберпанк-мафия на одном телефоне. 5–9 игроков, 15 минут." />
+  <meta property="og:image" content="https://shvilligan.github.io/games/who-is-ai/icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Jura:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.5; }
-    h1 { margin-bottom: 8px; }
-    ul { padding-left: 18px; }
+    :root {
+      --bg-deep: #02070c;
+      --cyan: #00e5ff;
+      --cyan-soft: #56f0e6;
+      --orange: #ff8a00;
+      --text: #e7fcff;
+      --muted: #97b4bc;
+      --panel-bg: rgba(7, 19, 26, 0.72);
+      --panel-border: #5fdce4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg-deep); color: var(--text); min-height: 100vh; }
+    body {
+      font-family: 'Jura', sans-serif;
+      background-color: var(--bg-deep);
+      background-image:
+        radial-gradient(ellipse at 50% 0%,   rgba(255, 138, 0, 0.12), transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(0, 229, 255, 0.09), transparent 55%),
+        url('assets/bg.webp');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    /* Subtle scanlines */
+    body::after {
+      content: "";
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        180deg,
+        transparent 0, transparent 3px,
+        rgba(0, 229, 255, 0.018) 3px,
+        rgba(0, 229, 255, 0.018) 4px
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== Brand header ===== */
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .brand {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(36px, 7vw, 54px);
+      letter-spacing: 4px;
+      color: var(--text);
+      text-shadow: 0 0 24px rgba(0, 229, 255, 0.4);
+    }
+    .brand .dot { color: var(--orange); }
+    .tagline {
+      margin-top: 14px;
+      font-family: 'Jura', sans-serif;
+      font-weight: 500;
+      font-size: clamp(14px, 2.5vw, 18px);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      opacity: 0.9;
+    }
+    .status {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Jura', sans-serif;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .status .led {
+      width: 8px; height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--cyan);
+      animation: blink 1.8s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0.3; } }
+
+    /* ===== Game card ===== */
+    .game-card {
+      position: relative;
+      border: 1.5px solid var(--panel-border);
+      background: var(--panel-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 40px 32px 32px;
+      box-shadow:
+        0 0 32px rgba(0, 229, 255, 0.18),
+        inset 0 0 50px rgba(0, 229, 255, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .game-card::before {
+      content: "GAME :: 01";
+      position: absolute;
+      top: -14px; left: 28px;
+      background: var(--bg-deep);
+      padding: 0 12px;
+      font-family: 'Jura', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 5px;
+      color: var(--cyan);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .card-head .icon-wrap {
+      position: relative;
+      flex-shrink: 0;
+      width: clamp(96px, 22vw, 132px);
+      aspect-ratio: 1;
+    }
+    .card-head .icon-wrap::before {
+      content: "";
+      position: absolute; inset: -6px;
+      background: radial-gradient(circle, rgba(255, 138, 0, 0.42), transparent 70%);
+      filter: blur(12px);
+      z-index: 0;
+    }
+    .card-head img {
+      position: relative;
+      width: 100%; height: 100%;
+      display: block;
+      border-radius: 22px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.55);
+      z-index: 1;
+    }
+    .card-head .titles {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .card-head .game-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 6vw, 44px);
+      line-height: 1;
+      color: var(--text);
+      text-shadow: 0 0 18px rgba(0, 229, 255, 0.45);
+      white-space: nowrap;
+    }
+    .card-head .game-title .q { color: var(--orange); text-shadow: 0 0 18px rgba(255, 138, 0, 0.55); }
+    .card-head .game-subtitle {
+      margin-top: 4px;
+      font-family: 'Jura', sans-serif;
+      font-weight: 500;
+      font-size: clamp(12px, 2.4vw, 15px);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan-soft), transparent);
+      opacity: 0.5;
+    }
+
+    .pitch {
+      font-family: 'Jura', sans-serif;
+      font-weight: 500;
+      font-size: clamp(15px, 3.2vw, 18px);
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .pitch b { color: var(--cyan); font-weight: 700; }
+
+    /* ===== CTA links ===== */
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1.5px solid var(--cyan-soft);
+      background: rgba(0, 15, 22, 0.55);
+      box-shadow: 0 0 16px rgba(0, 229, 255, 0.1);
+      transition: box-shadow 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .cta:hover, .cta:focus-visible {
+      background: rgba(0, 229, 255, 0.08);
+      box-shadow: 0 0 26px rgba(0, 229, 255, 0.28);
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .cta .badge {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #fff;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.22);
+    }
+    .cta .badge img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .cta .meta { display: flex; flex-direction: column; min-width: 0; }
+    .cta .lbl {
+      font-family: 'Jura', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .cta .val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(16px, 3.2vw, 20px);
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 2px;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .legal {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+    }
+    .legal a {
+      font-family: 'Jura', sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px dashed transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .legal a:hover, .legal a:focus-visible {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      outline: none;
+    }
+    .copy {
+      font-family: 'Jura', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: rgba(151, 180, 188, 0.6);
+      text-transform: uppercase;
+    }
   </style>
 </head>
 <body>
-  <h1>Shvilligan Games</h1>
-  <p>Official links for Who is AI?</p>
-  <ul>
-    <li><a href="/who-is-ai-legal/">Legal home</a></li>
-    <li><a href="/who-is-ai-legal/privacy-policy/">Privacy Policy</a></li>
-    <li><a href="/who-is-ai-legal/terms-of-use/">Terms of Use</a></li>
-  </ul>
+  <div class="page">
+    <header>
+      <div class="brand">SHVILLIGAN GAMES</div>
+      <div class="tagline">// pass-the-phone party games</div>
+      <div class="status"><span class="led"></span>SYSTEM :: ONLINE</div>
+    </header>
+
+    <main>
+      <section class="game-card">
+        <div class="card-head">
+          <div class="icon-wrap">
+            <img src="games/who-is-ai/icon.png" alt="Who is AI? icon">
+          </div>
+          <div class="titles">
+            <div class="game-title">WHO&nbsp;IS&nbsp;AI<span class="q">?</span></div>
+            <div class="game-subtitle">Киберпанк-мафия</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="pitch">
+          <b>5–9 игроков</b> на одном телефоне, партия <b>~15 минут</b>.
+          Как мафия — только вместо мафии в команде ИИ. Без ведущего и без интернета.
+        </p>
+
+        <div class="links">
+          <a class="cta" href="https://play.google.com/store/apps/details?id=com.artem.whoisai" rel="noopener">
+            <span class="badge"><img src="assets/badge-google-play.jpg" alt=""></span>
+            <span class="meta">
+              <span class="lbl">Android · Google Play</span>
+              <span class="val">Установить</span>
+            </span>
+          </a>
+          <a class="cta" href="https://t.me/who_is_ai_bot/play" rel="noopener">
+            <span class="badge"><img src="assets/badge-telegram.jpg" alt=""></span>
+            <span class="meta">
+              <span class="lbl">Telegram Mini App</span>
+              <span class="val">Играть в Telegram</span>
+            </span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <nav class="legal">
+        <a href="/who-is-ai-legal/">Legal home</a>
+        <a href="/who-is-ai-legal/privacy-policy/">Privacy</a>
+        <a href="/who-is-ai-legal/terms-of-use/">Terms</a>
+      </nav>
+      <div class="copy">© Shvilligan Games</div>
+    </footer>
+  </div>
 </body>
 </html>
