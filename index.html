@@ -360,8 +360,21 @@
         <a href="/who-is-ai-legal/privacy-policy/">Privacy</a>
         <a href="/who-is-ai-legal/terms-of-use/">Terms</a>
       </nav>
-      <div class="copy">© Shvilligan Games</div>
+      <div class="copy">©&nbsp;<span id="copy-years">2026</span>&nbsp;Shvilligan Games. All rights reserved.</div>
     </footer>
   </div>
+
+  <script>
+    // Auto-extend copyright to a range once the calendar year rolls over.
+    // Start year stays hardcoded so we remember when the project launched;
+    // the end of the range is computed in the browser. When start == now,
+    // only the start year is shown.
+    (function () {
+      var START = 2026;
+      var now = new Date().getFullYear();
+      var el = document.getElementById('copy-years');
+      if (el) el.textContent = now > START ? START + '\u2013' + now : String(START);
+    })();
+  </script>
 </body>
 </html>
