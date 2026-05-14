@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Shvilligan Games</title>
-  <meta name="description" content="Shvilligan Games — party games crafted to pass the phone. Who is AI? — cyberpunk social deduction for 5–9 players." />
+  <meta name="description" content="Shvilligan Games — independent game studio. Who is AI? — cyberpunk social deduction for 5–9 players, on one phone or across devices." />
 
   <link rel="icon" type="image/png" href="games/who-is-ai/icon.png" />
   <link rel="apple-touch-icon" href="games/who-is-ai/icon.png" />
@@ -12,8 +12,21 @@
   <!-- Open Graph — so link previews in Instagram / Telegram look right. -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Shvilligan Games — Who is AI?" />
-  <meta property="og:description" content="Киберпанк-мафия на одном телефоне. 5–9 игроков, 15 минут." />
+  <meta property="og:description" content="Киберпанк-мафия. 5–9 игроков, ~15 минут. На одном телефоне или каждый со своего устройства." />
   <meta property="og:image" content="https://shvilligan.github.io/games/who-is-ai/icon.png" />
+
+  <script>
+    // Resolve UI language before first paint to avoid a flash of the wrong locale.
+    // Order: explicit user choice (localStorage) > browser language > fallback English.
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('lang'); } catch (e) {}
+      var nav = (navigator.language || 'en').toLowerCase();
+      var lang = stored || (nav.indexOf('ru') === 0 ? 'ru' : 'en');
+      document.documentElement.lang = lang;
+      document.documentElement.setAttribute('data-lang', lang);
+    })();
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,6 +44,45 @@
       --panel-border: #5fdce4;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Locale toggle: default RU visible, EN shows only when html[data-lang="en"]. */
+    [data-en] { display: none; }
+    [data-ru] { display: inline; }
+    html[data-lang="en"] [data-en] { display: inline; }
+    html[data-lang="en"] [data-ru] { display: none; }
+
+    .lang-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 5;
+      display: flex;
+      gap: 4px;
+      font-family: 'Jura', sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+    }
+    .lang-toggle button {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      padding: 4px 8px;
+      font-family: inherit;
+      font-size: inherit;
+      letter-spacing: inherit;
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .lang-toggle button:hover,
+    .lang-toggle button:focus-visible {
+      color: var(--cyan);
+      outline: none;
+    }
+    .lang-toggle button.active {
+      color: var(--cyan);
+      border-color: var(--cyan-soft);
+    }
+
     html, body { background: var(--bg-deep); color: var(--text); min-height: 100vh; }
     body {
       font-family: 'Jura', sans-serif;
@@ -308,9 +360,14 @@
 </head>
 <body>
   <div class="page">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-set-lang="ru" aria-label="Русский">RU</button>
+      <button type="button" data-set-lang="en" aria-label="English">EN</button>
+    </div>
+
     <header>
       <div class="brand">SHVILLIGAN GAMES</div>
-      <div class="tagline">// pass-the-phone party games</div>
+      <div class="tagline">// independent game studio</div>
       <div class="status"><span class="led"></span>SYSTEM :: ONLINE</div>
     </header>
 
@@ -322,33 +379,41 @@
           </div>
           <div class="titles">
             <div class="game-title">WHO&nbsp;IS&nbsp;AI<span class="q">?</span></div>
-            <div class="game-subtitle">Киберпанк-мафия</div>
+            <div class="game-subtitle"><span data-ru>Киберпанк-мафия</span><span data-en>Cyberpunk mafia</span></div>
           </div>
         </div>
 
         <div class="divider"></div>
 
         <div class="features">
-          <div class="feat"><span class="arrow">▸</span><span><b>5–9</b> игроков на одном телефоне</span></div>
-          <div class="feat"><span class="arrow">▸</span><span>партия — <b>~15 минут</b></span></div>
-          <div class="feat"><span class="arrow">▸</span><span>вместо мафии — <b>ИИ в команде</b></span></div>
-          <div class="feat"><span class="arrow">▸</span><span><b>модули</b>, переворачивающие игру</span></div>
-          <div class="feat"><span class="arrow">▸</span><span>без ведущего и без интернета</span></div>
+          <div class="feat"><span class="arrow">▸</span><span data-ru><b>5–9</b> игроков</span><span data-en><b>5–9</b> players</span></div>
+          <div class="feat"><span class="arrow">▸</span><span data-ru>играйте <b>на одном телефоне</b> или <b>каждый со своего</b> устройства</span><span data-en>play <b>on one phone</b> or <b>each on their own</b> device</span></div>
+          <div class="feat"><span class="arrow">▸</span><span data-ru>партия — <b>~15 минут</b></span><span data-en><b>~15 minutes</b> per game</span></div>
+          <div class="feat"><span class="arrow">▸</span><span data-ru>вместо мафии — <b>ИИ в команде</b></span><span data-en>instead of mafia — <b>AI in the team</b></span></div>
+          <div class="feat"><span class="arrow">▸</span><span data-ru><b>модули</b>, переворачивающие игру</span><span data-en>game-flipping <b>modules</b></span></div>
+          <div class="feat"><span class="arrow">▸</span><span data-ru>без ведущего</span><span data-en>no host needed</span></div>
         </div>
 
         <div class="links">
+          <a class="cta" href="https://apps.apple.com/us/app/who-is-ai/id6767461180" rel="noopener">
+            <span class="badge"><img src="assets/badge-app-store.png" alt=""></span>
+            <span class="meta">
+              <span class="lbl">iOS · App Store</span>
+              <span class="val"><span data-ru>Установить</span><span data-en>Install</span></span>
+            </span>
+          </a>
           <a class="cta" href="https://play.google.com/store/apps/details?id=com.artem.whoisai" rel="noopener">
             <span class="badge"><img src="assets/badge-google-play.jpg" alt=""></span>
             <span class="meta">
               <span class="lbl">Android · Google Play</span>
-              <span class="val">Установить</span>
+              <span class="val"><span data-ru>Установить</span><span data-en>Install</span></span>
             </span>
           </a>
           <a class="cta" href="https://t.me/who_is_ai_bot/play" rel="noopener">
             <span class="badge"><img src="assets/badge-telegram.jpg" alt=""></span>
             <span class="meta">
               <span class="lbl">Telegram Mini App</span>
-              <span class="val">Играть в Telegram</span>
+              <span class="val"><span data-ru>Играть в Telegram</span><span data-en>Play in Telegram</span></span>
             </span>
           </a>
         </div>
@@ -375,6 +440,30 @@
       var now = new Date().getFullYear();
       var el = document.getElementById('copy-years');
       if (el) el.textContent = now > START ? START + '\u2013' + now : String(START);
+    })();
+
+    // Language toggle. Initial value is set by the inline script in <head>
+    // before first paint; here we sync the buttons' active state and persist
+    // user clicks to localStorage so the choice survives reloads.
+    (function () {
+      var root = document.documentElement;
+      var buttons = document.querySelectorAll('.lang-toggle button[data-set-lang]');
+      function sync() {
+        var current = root.getAttribute('data-lang');
+        buttons.forEach(function (b) {
+          b.classList.toggle('active', b.getAttribute('data-set-lang') === current);
+        });
+      }
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var next = b.getAttribute('data-set-lang');
+          root.lang = next;
+          root.setAttribute('data-lang', next);
+          try { localStorage.setItem('lang', next); } catch (e) {}
+          sync();
+        });
+      });
+      sync();
     })();
   </script>
 </body>
