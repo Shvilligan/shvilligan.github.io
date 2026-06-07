@@ -114,7 +114,7 @@
     .page {
       max-width: 720px;
       margin: 0 auto;
-      padding: 56px 24px 40px;
+      padding: 44px 24px 40px;
       position: relative;
       z-index: 2;
     }
@@ -125,40 +125,40 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-bottom: 56px;
+      margin-bottom: 40px;
     }
     .brand {
       font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: clamp(36px, 7vw, 54px);
-      letter-spacing: 4px;
+      font-weight: 700;
+      font-size: clamp(22px, 4vw, 32px);
+      letter-spacing: 3px;
       color: var(--text);
-      text-shadow: 0 0 24px rgba(0, 229, 255, 0.4);
+      text-shadow: 0 0 12px rgba(0, 229, 255, 0.22);
     }
     .brand .dot { color: var(--orange); }
     .tagline {
-      margin-top: 14px;
+      margin-top: 9px;
       font-family: 'Jura', sans-serif;
       font-weight: 500;
-      font-size: clamp(14px, 2.5vw, 18px);
-      letter-spacing: 3px;
+      font-size: clamp(11px, 1.8vw, 13px);
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--cyan);
-      opacity: 0.9;
+      opacity: 0.85;
     }
     .status {
-      margin-top: 18px;
+      margin-top: 11px;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       font-family: 'Jura', sans-serif;
-      font-size: 12px;
-      letter-spacing: 4px;
+      font-size: 10px;
+      letter-spacing: 3px;
       color: var(--muted);
       text-transform: uppercase;
     }
     .status .led {
-      width: 8px; height: 8px;
+      width: 7px; height: 7px;
       background: var(--cyan);
       border-radius: 50%;
       box-shadow: 0 0 10px var(--cyan);
@@ -518,6 +518,32 @@
       border-color: var(--cyan);
       outline: none;
     }
+    /* Contact line — shows the address verbatim so it works even where
+       mailto: has no handler (the visitor can still read / copy it). */
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: baseline;
+      gap: 8px;
+      font-family: 'Jura', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contact a {
+      letter-spacing: 1px;
+      text-transform: none;
+      color: var(--cyan);
+      text-decoration: none;
+      border-bottom: 1px dashed transparent;
+      transition: border-color 0.15s ease;
+    }
+    .contact a:hover, .contact a:focus-visible {
+      border-color: var(--cyan);
+      outline: none;
+    }
     .copy {
       font-family: 'Jura', sans-serif;
       font-size: 11px;
@@ -630,6 +656,10 @@
     </main>
 
     <footer>
+      <div class="contact">
+        <span data-ru>Связь и поддержка:</span><span data-en>Contact &amp; support:</span>
+        <a href="mailto:artem.podrushnyak@gmail.com">artem.podrushnyak@gmail.com</a>
+      </div>
       <div class="copy">©&nbsp;<span id="copy-years">2026</span>&nbsp;Shvilligan Games. All rights reserved.</div>
     </footer>
   </div>
