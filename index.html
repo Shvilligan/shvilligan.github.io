@@ -455,6 +455,12 @@
       font-size: clamp(14px, 3.2vw, 18px);
       margin-top: 2px;
       color: var(--cf-cream);
+      white-space: nowrap;
+    }
+    /* Phones: side-by-side store buttons get too narrow and the labels
+       wrap — stack them full-width so each sits on one line. */
+    @media (max-width: 560px) {
+      .cf-card .cf-links { flex-direction: column; }
     }
     /* Per-card legal link (one entry → its Privacy + Terms hub). */
     .cf-card .cf-legal {
