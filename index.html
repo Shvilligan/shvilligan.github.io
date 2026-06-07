@@ -4,16 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Shvilligan Games</title>
-  <meta name="description" content="Shvilligan Games — independent game studio. Who is AI? — cyberpunk social deduction for 5–9 players, on one phone or across devices." />
+  <meta name="description" content="Shvilligan Games — independent game studio. Crackface — guess-the-secret-character party game for 2–4 players. Who is AI? — cyberpunk social deduction for 5–9 players." />
 
-  <link rel="icon" type="image/png" href="games/who-is-ai/icon.png" />
-  <link rel="apple-touch-icon" href="games/who-is-ai/icon.png" />
+  <link rel="icon" type="image/png" href="games/crackface/icon.png" />
+  <link rel="apple-touch-icon" href="games/crackface/icon.png" />
 
   <!-- Open Graph — so link previews in Instagram / Telegram look right. -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Shvilligan Games — Who is AI?" />
-  <meta property="og:description" content="Киберпанк-мафия. 5–9 игроков, ~15 минут. На одном телефоне или каждый со своего устройства." />
-  <meta property="og:image" content="https://shvilligan.github.io/games/who-is-ai/icon.png" />
+  <meta property="og:title" content="Shvilligan Games — Crackface" />
+  <meta property="og:description" content="Crackface — вечеринка-угадайка: угадай секретного персонажа. 2–4 игрока, на одном телефоне, каждый со своего или онлайн." />
+  <meta property="og:image" content="https://shvilligan.github.io/games/crackface/icon.png" />
 
   <script>
     // Resolve UI language before first paint to avoid a flash of the wrong locale.
@@ -30,7 +30,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Jura:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Jura:wght@400;500;700&family=Russo+One&family=Black+Ops+One&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -320,6 +320,175 @@
       margin-top: 2px;
     }
 
+    /* ===== Crackface card (own brand: cream cards, burnt-orange, hard square shadows) ===== */
+    .cf-card {
+      --cf-cream: #EDE8D5;
+      --cf-ink: #1A1208;
+      --cf-orange: #B84A1E;
+      --cf-accent: #C4380A;
+      position: relative;
+      margin-bottom: 56px;
+      background: var(--cf-cream);
+      color: var(--cf-ink);
+      padding: 40px 32px 32px;
+      box-shadow: 8px 8px 0 var(--cf-ink);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    /* Tilted brand tag — echoes the in-game TiltedContainer. */
+    .cf-card .cf-tag {
+      position: absolute;
+      top: -16px; left: 24px;
+      transform: rotate(-3deg);
+      background: var(--cf-orange);
+      color: var(--cf-cream);
+      padding: 5px 14px;
+      font-family: 'Russo One', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      box-shadow: 3px 3px 0 var(--cf-ink);
+    }
+    .cf-card .cf-head {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .cf-card .cf-icon {
+      flex-shrink: 0;
+      width: clamp(96px, 22vw, 132px);
+      aspect-ratio: 1;
+      display: block;
+      box-shadow: 5px 5px 0 var(--cf-ink);
+    }
+    .cf-card .cf-titles { flex: 1; min-width: 0; }
+    .cf-card .cf-title {
+      font-family: 'Black Ops One', cursive;
+      font-size: clamp(30px, 6.4vw, 46px);
+      line-height: 1;
+      color: var(--cf-ink);
+    }
+    .cf-card .cf-subtitle {
+      margin-top: 8px;
+      font-family: 'Russo One', sans-serif;
+      font-size: clamp(12px, 2.4vw, 15px);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--cf-accent);
+    }
+    .cf-card .cf-status {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 3px 10px;
+      font-family: 'Russo One', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cf-cream);
+      background: var(--cf-ink);
+    }
+    .cf-card .cf-divider {
+      height: 3px;
+      background: var(--cf-ink);
+    }
+    .cf-card .cf-features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .cf-card .cf-feat {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-family: 'Russo One', sans-serif;
+      font-size: clamp(14px, 3vw, 17px);
+      line-height: 1.35;
+      color: var(--cf-ink);
+    }
+    .cf-card .cf-feat .cf-arrow { color: var(--cf-orange); flex-shrink: 0; }
+    .cf-card .cf-feat b { color: var(--cf-accent); font-weight: 400; }
+    .cf-card .cf-links {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+    }
+    .cf-card .cf-cta {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      text-decoration: none;
+      background: var(--cf-orange);
+      color: var(--cf-cream);
+      border: 3px solid var(--cf-ink);
+      box-shadow: 5px 5px 0 var(--cf-ink);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .cf-card .cf-cta:hover, .cf-card .cf-cta:focus-visible {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 var(--cf-ink);
+      outline: none;
+    }
+    .cf-card .cf-cta .cf-badge {
+      width: 46px; height: 46px;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .cf-card .cf-cta .cf-badge img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .cf-card .cf-cta .cf-meta { display: flex; flex-direction: column; min-width: 0; }
+    .cf-card .cf-cta .cf-lbl {
+      font-family: 'Russo One', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(237, 232, 213, 0.75);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cf-card .cf-cta .cf-val {
+      font-family: 'Russo One', sans-serif;
+      font-size: clamp(14px, 3.2vw, 18px);
+      margin-top: 2px;
+      color: var(--cf-cream);
+    }
+    /* Per-card legal link (one entry → its Privacy + Terms hub). */
+    .cf-card .cf-legal {
+      align-self: center;
+      font-family: 'Russo One', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--cf-ink);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .cf-card .cf-legal:hover, .cf-card .cf-legal:focus-visible {
+      color: var(--cf-accent);
+      outline: none;
+    }
+    /* Per-card legal link for the cyberpunk (Who is AI?) card. */
+    .game-card .card-legal {
+      align-self: center;
+      font-family: 'Jura', sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px dashed transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .game-card .card-legal:hover, .game-card .card-legal:focus-visible {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      outline: none;
+    }
+
     /* ===== Footer ===== */
     footer {
       margin-top: 64px;
@@ -372,6 +541,46 @@
     </header>
 
     <main>
+      <section class="cf-card">
+        <div class="cf-tag">GAME :: 02</div>
+        <div class="cf-head">
+          <img class="cf-icon" src="games/crackface/icon.png" alt="Crackface icon">
+          <div class="cf-titles">
+            <div class="cf-title">CRACKFACE</div>
+            <div class="cf-subtitle"><span data-ru>Угадай секретного персонажа</span><span data-en>Guess the secret character</span></div>
+            <div class="cf-status"><span data-ru>Скоро · Coming soon</span><span data-en>Coming soon</span></div>
+          </div>
+        </div>
+
+        <div class="cf-divider"></div>
+
+        <div class="cf-features">
+          <div class="cf-feat"><span class="cf-arrow">▸</span><span data-ru><b>2–4</b> игрока</span><span data-en><b>2–4</b> players</span></div>
+          <div class="cf-feat"><span class="cf-arrow">▸</span><span data-ru>играйте <b>на одном телефоне</b>, <b>каждый со своего</b> или <b>онлайн</b> по коду комнаты</span><span data-en>play <b>on one phone</b>, <b>each on their own</b>, or <b>online</b> with a room code</span></div>
+          <div class="cf-feat"><span class="cf-arrow">▸</span><span data-ru>партия — <b>за пару минут</b></span><span data-en><b>a couple of minutes</b> per game</span></div>
+          <div class="cf-feat"><span class="cf-arrow">▸</span><span data-ru><b>спрашивай</b>, вычёркивай и <b>угадай персонажа первым</b></span><span data-en><b>ask</b>, eliminate and <b>guess the character first</b></span></div>
+          <div class="cf-feat"><span class="cf-arrow">▸</span><span data-ru>десятки <b>тематических наборов</b></span><span data-en>dozens of <b>themed packs</b></span></div>
+          <div class="cf-feat"><span class="cf-arrow">▸</span><span data-ru><b>собери свой</b> набор из любых фото</span><span data-en><b>build your own</b> pack from any photos</span></div>
+        </div>
+
+        <div class="cf-links">
+          <a class="cf-cta" href="https://apps.apple.com/app/id6773009765" rel="noopener">
+            <span class="cf-badge"><img src="assets/badge-app-store.png" alt=""></span>
+            <span class="cf-meta">
+              <span class="cf-val">App Store</span>
+            </span>
+          </a>
+          <a class="cf-cta" href="https://play.google.com/store/apps/details?id=app.crackface" rel="noopener">
+            <span class="cf-badge"><img src="assets/badge-google-play.jpg" alt=""></span>
+            <span class="cf-meta">
+              <span class="cf-val">Google Play</span>
+            </span>
+          </a>
+        </div>
+
+        <a class="cf-legal" href="https://legal.crackface.app/" rel="noopener">Privacy Policy · Terms of Use</a>
+      </section>
+
       <section class="game-card">
         <div class="card-head">
           <div class="icon-wrap">
@@ -398,15 +607,13 @@
           <a class="cta" href="https://apps.apple.com/us/app/who-is-ai/id6767461180" rel="noopener">
             <span class="badge"><img src="assets/badge-app-store.png" alt=""></span>
             <span class="meta">
-              <span class="lbl">iOS · App Store</span>
-              <span class="val"><span data-ru>Установить</span><span data-en>Install</span></span>
+              <span class="val">App Store</span>
             </span>
           </a>
           <a class="cta" href="https://play.google.com/store/apps/details?id=com.artem.whoisai" rel="noopener">
             <span class="badge"><img src="assets/badge-google-play.jpg" alt=""></span>
             <span class="meta">
-              <span class="lbl">Android · Google Play</span>
-              <span class="val"><span data-ru>Установить</span><span data-en>Install</span></span>
+              <span class="val">Google Play</span>
             </span>
           </a>
           <a class="cta" href="https://t.me/who_is_ai_bot/play" rel="noopener">
@@ -417,15 +624,12 @@
             </span>
           </a>
         </div>
+
+        <a class="card-legal" href="https://shvilligan.github.io/who-is-ai-legal/">Privacy Policy · Terms of Use</a>
       </section>
     </main>
 
     <footer>
-      <nav class="legal">
-        <a href="/who-is-ai-legal/">Legal home</a>
-        <a href="/who-is-ai-legal/privacy-policy/">Privacy</a>
-        <a href="/who-is-ai-legal/terms-of-use/">Terms</a>
-      </nav>
       <div class="copy">©&nbsp;<span id="copy-years">2026</span>&nbsp;Shvilligan Games. All rights reserved.</div>
     </footer>
   </div>
