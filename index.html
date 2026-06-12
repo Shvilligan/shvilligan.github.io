@@ -376,17 +376,6 @@
       text-transform: uppercase;
       color: var(--cf-accent);
     }
-    .cf-card .cf-status {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 3px 10px;
-      font-family: 'Russo One', sans-serif;
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--cf-cream);
-      background: var(--cf-ink);
-    }
     .cf-card .cf-divider {
       height: 3px;
       background: var(--cf-ink);
@@ -430,6 +419,13 @@
       transform: translate(3px, 3px);
       box-shadow: 2px 2px 0 var(--cf-ink);
       outline: none;
+    }
+    .cf-card .cf-cta--disabled,
+    .cf-card .cf-cta--disabled:hover {
+      opacity: 0.55;
+      cursor: default;
+      transform: none;
+      box-shadow: 5px 5px 0 var(--cf-ink);
     }
     .cf-card .cf-cta .cf-badge {
       width: 46px; height: 46px;
@@ -580,7 +576,6 @@
           <div class="cf-titles">
             <div class="cf-title">CRACKFACE</div>
             <div class="cf-subtitle"><span data-ru>Угадай секретного персонажа</span><span data-en>Guess the secret character</span></div>
-            <div class="cf-status"><span data-ru>Скоро · Coming soon</span><span data-en>Coming soon</span></div>
           </div>
         </div>
 
@@ -602,12 +597,13 @@
               <span class="cf-val">App Store</span>
             </span>
           </a>
-          <a class="cf-cta" href="https://play.google.com/store/apps/details?id=app.crackface" rel="noopener">
+          <span class="cf-cta cf-cta--disabled" aria-disabled="true">
             <span class="cf-badge"><img src="assets/badge-google-play.jpg" alt=""></span>
             <span class="cf-meta">
+              <span class="cf-lbl"><span data-ru>Скоро · Coming soon</span><span data-en>Coming soon</span></span>
               <span class="cf-val">Google Play</span>
             </span>
-          </a>
+          </span>
         </div>
 
         <a class="cf-legal" href="https://legal.crackface.app/" rel="noopener">Privacy Policy · Terms of Use</a>
