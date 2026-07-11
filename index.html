@@ -473,6 +473,16 @@
       color: var(--cf-accent);
       outline: none;
     }
+    /* Footer row: official site link + legal hub side by side. */
+    .cf-card .cf-footer-links {
+      align-self: center;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cf-card .cf-site { color: var(--cf-accent); }
+    .cf-card .cf-site:hover, .cf-card .cf-site:focus-visible { color: var(--cf-ink); }
     /* Per-card legal link for the cyberpunk (Who is AI?) card. */
     .game-card .card-legal {
       align-self: center;
@@ -605,7 +615,10 @@
           </a>
         </div>
 
-        <a class="cf-legal" href="https://legal.crackface.app/" rel="noopener">Privacy Policy · Terms of Use</a>
+        <div class="cf-footer-links">
+          <a class="cf-legal cf-site" href="https://crackface.app/" rel="noopener">crackface.app</a>
+          <a class="cf-legal" href="https://legal.crackface.app/" rel="noopener">Privacy Policy · Terms of Use</a>
+        </div>
       </section>
 
       <section class="game-card">
