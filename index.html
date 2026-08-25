@@ -274,10 +274,12 @@
     /* ===== CTA links ===== */
     .links {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 12px;
     }
     .cta {
+      flex: 1;
+      min-width: 0;
       display: flex;
       align-items: center;
       gap: 16px;
@@ -318,6 +320,12 @@
       font-weight: 700;
       color: var(--text);
       margin-top: 2px;
+      white-space: nowrap;
+    }
+    /* Phones: side-by-side store buttons get too narrow and the labels
+       wrap — stack them full-width so each sits on one line. */
+    @media (max-width: 560px) {
+      .links { flex-direction: column; }
     }
 
     /* ===== Crackface card (own brand: cream cards, burnt-orange, hard square shadows) ===== */
