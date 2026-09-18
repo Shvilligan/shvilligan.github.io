@@ -830,3 +830,13 @@ triplelift.com, 5984, RESELLER, 6c33edb13117fd86
 risecodes.com, 5857d2ee263dc90002000001, RESELLER
 pubmatic.com, 166063, RESELLER, 5d62403b186f2ace
 newtonsmobi.com, 1c72568c304bd290, RESELLER
+bigo.sg, q9hk29ki8d, RESELLER
+pubmatic.com, 168366, RESELLER, 5d62403b186f2ace
+pubmatic.com, 168367, RESELLER, 5d62403b186f2ace
+adform.com, 3428, RESELLER, 9f5210a2f0999e32
+adform.com, 3429, RESELLER, 9f5210a2f0999e32
+bidline.net, 4d8b12af, RESELLER
+loopme.com, 20968, RESELLER, 6c8d5f95897a5a3b
+loopme.com, 20970, RESELLER, 6c8d5f95897a5a3b
+triplelift.com, 14833, RESELLER, 6c33edb13117fd86
+loopme.com, 20775, RESELLER, 6c8d5f95897a5a3b
